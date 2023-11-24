@@ -1,27 +1,40 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main ()
-{
-    int n;
-    cin >> n;
 
-    int arr[n];
-    for (int i = 0; i < n; ++i){
-        cin >> arr[i];
+struct Student {
+    string name; 
+    int cls; 
+    char s;
+    int id;
+    int math_marks, eng_marks;
+};
+
+bool cmp(const Student& a, const Student& b) {
+    int total_MarksA = a.math_marks + a.eng_marks;
+    int total_MarksB = b.math_marks + b.eng_marks;
+
+    if (total_MarksA != total_MarksB) {
+        return total_MarksA > total_MarksB;
     }
-    sort(arr, arr + n);//ascending
 
-    for (int i = 0; i < n; i++){
-        cout << arr[i] << " ";
+    return a.id < b.id;
+}
+
+int main() {
+   
+    int N;
+    cin >> N;
+    Student students[N];
+    for (int i = 0; i < N; ++i) {
+        cin >> students[i].name >> students[i].cls >> students[i].s >> students[i].id
+        >> students[i].math_marks >> students[i].eng_marks;
     }
-    cout << endl;
+    sort(students, students + N, cmp);
 
-    sort(arr, arr + n, greater<int>());//descending
-
-    for (int i = 0; i < n; i++){
-        cout << arr[i] << " ";
+    for (int i = 0; i < N; ++i) {
+        cout << students[i].name << " " << students[i].cls << " " << students[i].s << " " << students[i].id
+        << " " << students[i].math_marks << " " << students[i].eng_marks << endl;
     }
-    cout << endl;
 
     return 0;
 }
